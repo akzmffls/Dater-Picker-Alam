@@ -10,16 +10,37 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var lbl: UILabel!
-    
     @IBOutlet weak var myDate: UIDatePicker!
-    
-    
     @IBOutlet weak var currentlbl: UILabel!
     
+    var myTimer = Timer()
+    var number : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a EE"
+        lbl.text = formatter.string(from: myDate.date)
+        
+        myTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {(myTimer) in self.updateTime()
+            
+        })
+        
+        
+    }
+    
+    func updateTime() {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy_MM-dd HH:mm:ss a EE"
+        currentlbl.text = formatter.string(from: date)
+        
+        if currentlbl.text == lbl.text {
+            view.backgroundColor = UIColor.red
+        }else {
+            view.backgroundColor = UIColor.white
+        }
     }
 
     override func didReceiveMemoryWarning() {
