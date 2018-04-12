@@ -9,7 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var lbl: UILabel!
+    
+    @IBOutlet weak var myDate: UIDatePicker!
+    
+    
+    @IBOutlet weak var currentlbl: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +27,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func changeDate(_ sender: Any) {
+        print("change Date Picker")
+        print(myDate.date)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a EE"
+        lbl.text = formatter.string(from: myDate.date)
+        
+        
+    }
+    
 }
 
