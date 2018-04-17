@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a EE"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a"
         lbl.text = formatter.string(from: myDate.date)
         
         myTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: {(myTimer) in self.updateTime()
@@ -33,14 +33,34 @@ class ViewController: UIViewController {
     func updateTime() {
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy_MM-dd HH:mm:ss a EE"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a"
         currentlbl.text = formatter.string(from: date)
         
         if currentlbl.text == lbl.text {
-            view.backgroundColor = UIColor.red
-        }else {
-            view.backgroundColor = UIColor.white
-        }
+            let myAlert = UIAlertController(title: "알림", message: "설정된 시간이 되었습니다!", preferredStyle: .actionSheet)
+            
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: {(myAction: UIAlertAction) -> Void in
+                self.view.backgroundColor = UIColor.red
+            })
+            
+            let cancelAction =  UIAlertAction(title: "취소", style: .cancel, handler: {(myAction: UIAlertAction) -> Void in
+                self.view.backgroundColor = UIColor.white
+            })
+            
+            let testAction = UIAlertAction(title: "테스트", style: .destructive, handler: {(myAction: UIAlertAction) -> Void in
+                self.view.backgroundColor = UIColor.green
+            })
+            
+            myAlert.addAction(okAction)
+            myAlert.addAction(cancelAction)
+            myAlert.addAction(testAction)
+            
+            present(myAlert, animated: true, completion: nil)
+            
+        
+        } //else {
+            //view.backgroundColor = UIColor.white
+        //}
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,7 +73,7 @@ class ViewController: UIViewController {
         print(myDate.date)
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a EE"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a"
         lbl.text = formatter.string(from: myDate.date)
         
         
